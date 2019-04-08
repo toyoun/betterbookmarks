@@ -1,15 +1,21 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    }
+  "manifest_version": 2,
+
+  "name": "Test",
+  "version": "0.0.1",
+  "description": "Display and navigate your bookmarks on the new tab page!",
+
+  "browser_action": {
+    "default_title": "New Tab"
+  },
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+
+  "permissions": [
+    "bookmarks"
   ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+
+  "content_security_policy": "script-src 'self' https://www.google.com https://api.bing.com; object-src 'self'"
+
 }
