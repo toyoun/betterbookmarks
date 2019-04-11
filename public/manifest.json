@@ -6,7 +6,7 @@
   "description": "Display and navigate your bookmarks on the new tab page!",
 
   "browser_action": {
-    "default_title": "New Tab"
+    "default_title": "Better Bookmarks"
   },
   "chrome_url_overrides": {
     "newtab": "index.html"
