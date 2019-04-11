@@ -4,12 +4,12 @@ class Folder extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      bookmarks: this.props.bookmarks,
+      items: this.props.items,
     }
   }
 
   render() {
-    return { this.state.bookmarks };
+    return this.state.items;
   }
 }
 
