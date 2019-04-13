@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Bookmark from './bookmark';
+import './folder.css';
 
 class Folder extends Component {
   constructor(props) {
@@ -46,7 +47,7 @@ class Folder extends Component {
   render() {
     return (
       <div id={this.props.node.id} className="folder">
-        <p className="folder-name">{this.props.node.title}</p>
+        <h2 className="folder-name">{this.props.node.title}</h2>
         {this.props.node.children.map(this.retrieveChildren)}
       </div>
     );

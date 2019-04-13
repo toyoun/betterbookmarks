@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './bookmark.css';
 
 class Bookmark extends Component {
   componentDidMount() {
