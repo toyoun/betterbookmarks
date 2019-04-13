@@ -7,7 +7,7 @@ class App extends Component {
     return (
       <Viewport />
     );
-  }c
+  }
 }
 
 export default App;

@@ -1,31 +1,29 @@
 /*global chrome*/
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Folder from './folder';
 
 class Viewport extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      container: []
-    }
-
     this.processTree = this.processTree.bind(this);
-    this.processNode = this.processNode.bind(this);
+    this.processRoot = this.processRoot.bind(this);
+    this.processChild = this.processChild.bind(this);
   }
 
-  processNode(n) {
-    if (!n.url) {
-      this.props.addFolder(n);
-      n.children.forEach(this.processNode);
+  processChild(c) {
+    if (c.children) {
+      this.props.addRootFolder(c);
     }
-    else {
-      this.props.addBookmark(n);
-    }
+  }
+
+  processRoot(n) {
+    n.children.forEach(this.processChild);
   }
 
   processTree(i) {
-    i.forEach(this.processNode)
+    i.forEach(this.processRoot)
   }
 
   componentDidMount() {
@@ -35,7 +33,13 @@ class Viewport extends Component {
   render() {
     return (
       <div id="Viewport">
-        {this.props.container.map((item) => <p>{JSON.stringify(item)}</p>)}
+        {this.props.rootFolders.map((folder) => (
+          <Folder 
+            node={folder} 
+            addFolder={this.props.addFolder}
+            addBookmark={this.props.addBookmark}
+          />))
+        }
       </div>
     );
   }
@@ -43,12 +47,15 @@ class Viewport extends Component {
 
 function mapStateToProps(state) {
   return {
-    container: state.container
+    rootFolders: state.rootFolders,
+    folders: state.folders,
+    bookmarks: state.bookmarks
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    addRootFolder: (node) => dispatch({ type: "ADD_ROOT_FOLDER", item:node }),
     addFolder: (node) => dispatch({ type: "ADD_FOLDER", item: node }),
     addBookmark: (node) => dispatch({ type: "ADD_BOOKMARK", item: node })
   };
