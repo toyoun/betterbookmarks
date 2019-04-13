@@ -13,7 +13,8 @@
   },
 
   "permissions": [
-    "bookmarks"
+    "bookmarks",
+    "storage"
   ],
 
   "content_security_policy": "script-src 'self' https://www.google.com https://api.bing.com; object-src 'self'"
