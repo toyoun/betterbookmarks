@@ -14,7 +14,7 @@ class Viewport extends Component {
 
   processChild(c) {
     if (c.children) {
-      this.props.addRootFolder(c);
+      this.props.addRootFolder({ ...c, top: 0, left: 0 });
     }
   }
 
@@ -55,7 +55,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addRootFolder: (node) => dispatch({ type: "ADD_ROOT_FOLDER", item:node }),
+    addRootFolder: (node) => dispatch({ type: "ADD_ROOT_FOLDER", item: node }),
     addFolder: (node) => dispatch({ type: "ADD_FOLDER", item: node }),
     addBookmark: (node) => dispatch({ type: "ADD_BOOKMARK", item: node })
   };

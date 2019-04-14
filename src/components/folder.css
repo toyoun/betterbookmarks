@@ -12,6 +12,7 @@
   min-height: 48px;
   overflow-y: scroll;
   overflow-x: hidden;
+  position: relative;
 }
 
 .folder::-webkit-scrollbar {
