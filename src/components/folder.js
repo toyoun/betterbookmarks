@@ -12,6 +12,8 @@ class Folder extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleDrag = this.handleDrag.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
+
+    let tempPos;
   }
 
   retrieveChildren(child) {
@@ -41,33 +43,37 @@ class Folder extends Component {
   }
 
   handleClick(event) {
-    event.nativeEvent.dataTransfer.setData("text/plain",
-      this.props.node.top - event.clientY + "," +
-      this.props.node.left - event.clientX
-    );
-    event.stopPropagation();
+    this.tempPos = {
+      name: 'position',
+      top: this.props.node.top - event.clientY,
+      left: this.props.node.left - event.clientX
+    };
+
+    console.log(this.tempPos);
   }
 
   handleDrag(event) {
-    event.stopPropagation();
     event.preventDefault();
   }
   
   handleDrop(event) {
-    let pos = event.nativeEvent.dataTransfer.getData("text/plain").split(",");
+    let newNode;
 
-    console.log(pos);
-
-    let newNode = { 
-      ...this.props.node, 
-      top: event.clientY + parseInt(pos[0], 10), 
-      left: event.clientX + parseInt(pos[1], 10)
-    };
+    try {
+      newNode = { 
+        ...this.props.node, 
+        top: this.tempPos.top + event.clientY,
+        left: this.tempPos.left + event.clientX
+      };
+    }
+    catch (error) {
+      console.log(error);
+      return;
+    }
 
     console.log(newNode);
 
     this.props.updateFolderPosition(newNode);
-    event.stopPropagation();
   }
 
   componentDidCatch(error, info) {
@@ -90,8 +96,9 @@ class Folder extends Component {
         className="folder"
         style={position}
         onDragStart={this.handleClick}
-        onDragOver={this.handleDrag}
-        onDrop={this.handleDrop}
+        onDragEnter={this.handleDrag}
+        onDragOver={this.handleDrop}
+        onDragEnd={this.handleDrop}
         draggable
       >
         <h2 className="folder-name">{this.props.node.title}</h2>
