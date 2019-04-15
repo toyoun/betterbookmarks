@@ -1,11 +1,17 @@
+.bookmark {
+  padding: 5px 0;
+}
+
+.bookmark:hover {
+  background-color: #666;
+  cursor: pointer;
+}
+
 .bookmark-text {
   font-family: 'Quicksand', sans-serif;
   font-size: 14px;
   color: #F6F9F4;
   text-decoration: none;
   padding-left: 4px;
-}
-
-.bookmark-text:hover {
-  color: rgb(211, 211, 226);
+  margin: 0;
 }
