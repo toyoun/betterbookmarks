@@ -16,7 +16,7 @@ class Viewport extends Component {
 
   grabStorageValues(nodes) {
     if (nodes && nodes.key) {
-      nodes.key.forEach(folder => this.props.updateFolderPos(folder));
+      nodes.key.forEach(folder => this.props.updateFolder(folder));
     }
   }
 
@@ -47,7 +47,7 @@ class Viewport extends Component {
           <Folder 
             node={folder} 
             rootFolders={this.props.rootFolders}
-            updateFolderPosition={this.props.updateFolderPos}
+            updateFolder={this.props.updateFolder}
             addFolder={this.props.addFolder}
             addBookmark={this.props.addBookmark}
           />))
@@ -67,7 +67,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateFolderPos: (node) => dispatch({ type: "UPDATE_FOLDER_POS", item: node }),
+    updateFolder: (node) => dispatch({ type: "UPDATE_FOLDER", item: node }),
     addRootFolder: (node) => dispatch({ type: "ADD_ROOT_FOLDER", item: node }),
     addFolder: (node) => dispatch({ type: "ADD_FOLDER", item: node }),
     addBookmark: (node) => dispatch({ type: "ADD_BOOKMARK", item: node })

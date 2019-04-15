@@ -6,7 +6,7 @@ const INITIAL_STATE = {
 
 function bbReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case "UPDATE_FOLDER_POS":
+    case "UPDATE_FOLDER":
       return {
         ...state,
         rootFolders: state.rootFolders.map(folder => {

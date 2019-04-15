@@ -20,7 +20,7 @@ class Folder extends Component {
       return (
         <Folder 
           node={{ ...child, top: 0, left: 0 }}
-          updateFolderPosition={this.props.updateFolderPosition}
+          updateFolder={this.props.updateFolder}
           addFolder={this.props.addFolder}
           addBookmark={this.props.addBookmark}
         />
@@ -43,8 +43,7 @@ class Folder extends Component {
   }
 
   handleClick(event) {
-    this.tempPos = {
-      name: 'position',
+    this.tempStyle = {
       top: this.props.node.top - event.clientY,
       left: this.props.node.left - event.clientX
     };
@@ -53,20 +52,23 @@ class Folder extends Component {
   updateLocation(event) {
     return { 
       ...this.props.node, 
-      top: this.tempPos.top + event.clientY,
-      left: this.tempPos.left + event.clientX
+      top: this.tempStyle.top + event.clientY,
+      left: this.tempStyle.left + event.clientX
     };
   }
 
   handleDrag(event) {
     event.preventDefault();
-    this.props.node = this.updateLocation(event);
+
+    if (this.tempStyle) {
+      this.props.node = this.updateLocation(event);
+    }
   }
   
   handleDrop(event) {
     let newNode = this.updateLocation(event);
 
-    this.props.updateFolderPosition(newNode);
+    this.props.updateFolder(newNode);
 
     chrome.storage.local.set({
       "key": this.props.rootFolders
@@ -79,9 +81,11 @@ class Folder extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.node !== prevProps.node) {
-      this.position = {
+      this.style = {
         top: this.props.node.top,
-        left: this.props.node.left
+        left: this.props.node.left,
+        width: this.props.node.width,
+        height: this.props.node.height
       }
     }
   }
@@ -91,28 +95,35 @@ class Folder extends Component {
   }
 
   render() {
-    this.position = {
+    this.style = {
       top: this.props.node.top,
-      left: this.props.node.left
+      left: this.props.node.left,
+      width: this.props.node.width,
+      height: this.props.node.height
     };
 
     return (
       <div 
         id={this.props.node.id} 
         className="folder"
-        style={this.position}
-        onDragStart={this.handleClick}
-        onDragEnter={this.handleDrag}
-        onDragOver={this.handleDrop}
-        onDragEnd={this.handleDrop}
-        draggable
+        style={this.style}
       >
-        <h2 className="folder-name">
+        <h2 
+          className="folder-name"
+          onDragStart={this.handleClick}
+          onDragEnter={this.handleDrag}
+          onDragOver={this.handleDrop}
+          onDragEnd={this.handleDrop}
+          draggable
+        >
           {this.props.node.title}
         </h2>
         <div className="folder-items">
           {this.props.node.children.map(this.retrieveChildren)}
         </div>
+        <div 
+          className="resize-button"
+        ></div>
       </div>
     );
   }
