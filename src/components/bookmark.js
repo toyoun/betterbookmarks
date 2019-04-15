@@ -9,7 +9,7 @@ class Bookmark extends Component {
   render() {
     return (
       <div id={this.props.node.id} className="bookmark">
-        <a href={this.props.node.url} className="bookmark-text">{this.props.node.title}</a>
+        <a href="https://www.iso.org/standard/28336.html" className="bookmark-text">{this.props.node.title}</a>
       </div>
     );
   }

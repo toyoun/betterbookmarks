@@ -1,5 +1,5 @@
+/*global chrome*/
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import Bookmark from './bookmark';
 import './folder.css';
 
@@ -10,10 +10,9 @@ class Folder extends Component {
     this.retrieveChildren = this.retrieveChildren.bind(this);
     this.searchForFolder = this.searchForFolder.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.updateLocation = this.updateLocation.bind(this);
     this.handleDrag = this.handleDrag.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
-
-    let tempPos;
   }
 
   retrieveChildren(child) {
@@ -21,6 +20,7 @@ class Folder extends Component {
       return (
         <Folder 
           node={{ ...child, top: 0, left: 0 }}
+          updateFolderPosition={this.props.updateFolderPosition}
           addFolder={this.props.addFolder}
           addBookmark={this.props.addBookmark}
         />
@@ -48,36 +48,42 @@ class Folder extends Component {
       top: this.props.node.top - event.clientY,
       left: this.props.node.left - event.clientX
     };
+  }
 
-    console.log(this.tempPos);
+  updateLocation(event) {
+    return { 
+      ...this.props.node, 
+      top: this.tempPos.top + event.clientY,
+      left: this.tempPos.left + event.clientX
+    };
   }
 
   handleDrag(event) {
     event.preventDefault();
+    this.props.node = this.updateLocation(event);
   }
   
   handleDrop(event) {
-    let newNode;
-
-    try {
-      newNode = { 
-        ...this.props.node, 
-        top: this.tempPos.top + event.clientY,
-        left: this.tempPos.left + event.clientX
-      };
-    }
-    catch (error) {
-      console.log(error);
-      return;
-    }
-
-    console.log(newNode);
+    let newNode = this.updateLocation(event);
 
     this.props.updateFolderPosition(newNode);
+
+    chrome.storage.local.set({
+      "key": this.props.rootFolders
+    });
   }
 
   componentDidCatch(error, info) {
     console.log(error + info);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.node !== prevProps.node) {
+      this.position = {
+        top: this.props.node.top,
+        left: this.props.node.left
+      }
+    }
   }
 
   componentDidMount() {
@@ -85,7 +91,7 @@ class Folder extends Component {
   }
 
   render() {
-    let position = {
+    this.position = {
       top: this.props.node.top,
       left: this.props.node.left
     };
@@ -94,27 +100,22 @@ class Folder extends Component {
       <div 
         id={this.props.node.id} 
         className="folder"
-        style={position}
+        style={this.position}
         onDragStart={this.handleClick}
         onDragEnter={this.handleDrag}
         onDragOver={this.handleDrop}
         onDragEnd={this.handleDrop}
         draggable
       >
-        <h2 className="folder-name">{this.props.node.title}</h2>
-        {this.props.node.children.map(this.retrieveChildren)}
+        <h2 className="folder-name">
+          {this.props.node.title}
+        </h2>
+        <div className="folder-items">
+          {this.props.node.children.map(this.retrieveChildren)}
+        </div>
       </div>
     );
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    updateFolderPosition: (node) => dispatch({ type: "UPDATE_FOLDER_POS", item: node }),
-  };
-}
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(Folder);
+export default Folder;
