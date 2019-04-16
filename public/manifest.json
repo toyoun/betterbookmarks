@@ -5,6 +5,12 @@
   "version": "0.0.1",
   "description": "Display and navigate your bookmarks on the new tab page!",
 
+  "icons": {
+    "32": "better-bookmarks-favicon32.png",
+    "64": "better-bookmarks-favicon64.png",
+    "128": "better-bookmarks-favicon128.png"
+  },
+
   "browser_action": {
     "default_title": "Better Bookmarks"
   },
@@ -17,6 +23,6 @@
     "storage"
   ],
 
-  "content_security_policy": "script-src 'self' https://www.google.com https://api.bing.com; object-src 'self'"
+  "content_security_policy": "script-src 'self'; object-src 'self'"
 
 }
