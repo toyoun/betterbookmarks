@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Folder from './folder';
+import Settings from './settings';
 import './Viewport.css';
 
 class Viewport extends Component {
@@ -52,6 +53,7 @@ class Viewport extends Component {
             addBookmark={this.props.addBookmark}
           />))
         }
+        <Settings />
       </div>
     );
   }

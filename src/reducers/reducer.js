@@ -1,7 +1,8 @@
 const INITIAL_STATE = {
   rootFolders: [],
   folders: [],
-  bookmarks: []
+  bookmarks: [],
+  dashboardVisibility: { width: "0" }
 }
 
 function bbReducer(state = INITIAL_STATE, action) {
@@ -32,6 +33,23 @@ function bbReducer(state = INITIAL_STATE, action) {
         ...state,
         bookmarks: [ ...state.bookmarks, action.item ]
       };
+    case "TOGGLE_DASHBOARD":
+      if (state.dashboardVisibility.width === "0")
+        return {
+          ...state,
+          dashboardVisibility: { 
+            animation: "0.5s slide-dashboard",
+            width: "30vw"
+          }
+        };
+      else
+        return {
+          ...state,
+          dashboardVisibility: { 
+            animation: "0.5s slide-dashboard-back",
+            width: "0"
+          }
+        };
     default:
       return state;
   }

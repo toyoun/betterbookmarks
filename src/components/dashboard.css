@@ -1,0 +1,33 @@
+@keyframes slide-dashboard {
+  from {width: 0;}
+  to {width: 30vw;}
+}
+
+@keyframes slide-dashboard-back {
+  from {width: 30vw;}
+  to {width: 0;}
+}
+
+#dashboard {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background-color: rgb(226, 217, 217);
+}
+
+#Close-Button {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: none;
+  background-image: url("../assets/close.png");
+  cursor: pointer;
+}
+
+#Close-Button:focus {
+  outline: 0;
+}
