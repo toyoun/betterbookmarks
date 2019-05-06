@@ -11,6 +11,7 @@ class Bookmark extends Component {
       label: ""
     }
 
+    this.saveShortcuts = this.saveShortcuts.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleEnter = this.handleEnter.bind(this);
     this.displayShortcut = this.displayShortcut.bind(this);
@@ -34,7 +35,14 @@ class Bookmark extends Component {
     chrome.storage.local.get("shortcuts", this.displayShortcut);
   }
 
+  saveShortcuts() {
+    chrome.storage.local.set({
+      "shortcuts": this.props.shortcuts
+    });
+  }
+
   handleClick() {
+    this.saveShortcuts();
     window.open(this.props.node.url, "_self", false);
   }
 
@@ -44,11 +52,14 @@ class Bookmark extends Component {
         label: e.target.value
       })
 
-      this.props.addShortcut({ key: e.target.value, url: this.props.node.url, id: this.props.node.id });
+      if (e.target.value) {
+        this.props.addShortcut({ key: e.target.value, url: this.props.node.url, id: this.props.node.id });
+      }
+      else {
+        this.props.removeShortcut({ id: this.props.node.id });
+      }
 
-      chrome.storage.local.set({
-        "shortcuts": this.props.shortcuts
-      });
+      this.saveShortcuts();
     }
   }
 
@@ -85,7 +96,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addShortcut: (shortcut) => dispatch({ type: "ADD_SHORTCUT", item: shortcut })
+    addShortcut: (shortcut) => dispatch({ type: "ADD_SHORTCUT", item: shortcut }),
+    removeShortcut: (shortcut) => dispatch({ type: "DEL_SHORTCUT", item: shortcut })
   }
 }
 

@@ -39,6 +39,17 @@ function bbReducer(state = INITIAL_STATE, action) {
         ...state,
         shortcuts: [ ...state.shortcuts, action.item ]
       };
+    case "DEL_SHORTCUT":
+      return {
+        ...state,
+        shortcuts: state.shortcuts.map(shortcut => {
+          if (shortcut.id !== action.item.id) {
+            return shortcut;
+          }
+
+          return null;
+        })
+      };
     case "TOGGLE_DASHBOARD":
       if (state.dashboardVisibility.width === "0")
         return {

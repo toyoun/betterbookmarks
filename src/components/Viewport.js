@@ -50,6 +50,7 @@ class Viewport extends Component {
 
     this.props.shortcuts.forEach((shortcut) => {
       if (shortcut.key === e.key) {
+        chrome.storage.local.set({"shortcuts": this.props.shortcuts});
         window.open(shortcut.url, "_self", false);
       }
     })
