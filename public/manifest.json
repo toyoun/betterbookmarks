@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "Better Bookmarks",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Display and navigate your bookmarks on the new tab page!",
 
   "icons": {
