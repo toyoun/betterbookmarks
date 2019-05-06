@@ -6,9 +6,7 @@
   "description": "Display and navigate your bookmarks on the new tab page!",
 
   "icons": {
-    "32": "better-bookmarks-favicon32.png",
-    "64": "better-bookmarks-favicon64.png",
-    "128": "better-bookmarks-favicon128.png"
+    "128": "favicon.png"
   },
 
   "browser_action": {
