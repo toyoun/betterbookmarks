@@ -3,3 +3,22 @@
   flex-direction: row;
   align-items: flex-start;
 }
+
+#KeyReader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: none;
+  border: none;
+  z-index: 1;
+}
+
+#KeyReader:hover {
+  cursor: default;
+}
+
+#KeyReader:focus {
+  outline: none;
+}

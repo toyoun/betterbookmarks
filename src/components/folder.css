@@ -1,17 +1,23 @@
-@keyframes slide-folder {
-  from { max-height: 0; }
+@keyframes slide-folder-width {
+  from { max-width: 0; max-height: 0px; }
+  to { max-width: 500px; max-height: 0px; }
+}
+
+@keyframes slide-folder-height {
+  from { max-height: 0px; }
   to { max-height: 600px; }
 }
 
 .folder {
   display: flex;
   flex-direction: column;
-  border: 2px solid rgba(122, 104, 122, 0.5);
-  border-radius: 4px;
-  box-shadow: 0 0 5px 2px rgba(33, 33, 33, 0.507);
-  max-width: 500px;
+  box-shadow: 0 0 10px 2px rgba(21, 21, 21, 0.507);
   position: relative;
-  animation: 1s slide-folder;
+  animation-name: slide-folder-width, slide-folder-height;
+  animation-duration: 0.5s, 1s;
+  animation-delay: 0s, 0.5s;
+  animation-fill-mode: forwards;
+  z-index: 3;
 }
 
 .folder-name {
@@ -21,20 +27,20 @@
   color: #F6F9F4;
   padding: 0.5em 0 0.5em 0;
   margin: 0;
-  background-color: #232623bd;
+  background-color: #00000079;
   justify-content: center;
 }
 
-.folder-items {
-  background-color: rgba(54, 69, 59, 0.80);
-  padding: 1em;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  max-width: 500px;
-  max-height: 500px;
-  min-height: 48px;
+.folder-name:hover {
+  cursor: grab;
 }
 
+.folder-items {
+  background-color: rgba(0, 0, 20, 0.40);
+  padding: 4px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
 
 .folder-items::-webkit-scrollbar {
   width: 6px;
@@ -53,8 +59,8 @@
 
 .resize-button {
   position: absolute;
-  width: 50px;
-  height: 50px;
+  width: 20px;
+  height: 20px;
   bottom: 0;
   right: 0;
 }

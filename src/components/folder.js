@@ -71,7 +71,7 @@ class Folder extends Component {
     this.props.updateFolder(newNode);
 
     chrome.storage.local.set({
-      "key": this.props.rootFolders
+      "folders": this.props.rootFolders
     });
   }
 

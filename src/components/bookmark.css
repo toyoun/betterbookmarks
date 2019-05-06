@@ -1,5 +1,9 @@
 .bookmark {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   padding: 5px 0;
+  z-index: 2;
 }
 
 .bookmark:hover {
@@ -12,6 +16,20 @@
   font-size: 14px;
   color: #F6F9F4;
   text-decoration: none;
-  padding-left: 4px;
+  padding-left: 6px;
   margin: 0;
+}
+
+.bookmark-shortcut-label {
+  color: white;
+  margin-right: 4px;
+}
+
+.bookmark-shortcut-input {
+  background: none;
+  box-shadow: inset 0 0 2px rgba(24, 24, 24, 0.598);
+  border: 1px solid rgba(243, 240, 240, 0.541);
+  border-radius: 2px;
+  height: 10pt;
+  color: rgba(255, 255, 255, 0.87);
 }

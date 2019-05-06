@@ -2,7 +2,8 @@ const INITIAL_STATE = {
   rootFolders: [],
   folders: [],
   bookmarks: [],
-  dashboardVisibility: { width: "0" }
+  dashboardVisibility: { width: "0" },
+  shortcuts: []
 }
 
 function bbReducer(state = INITIAL_STATE, action) {
@@ -33,6 +34,11 @@ function bbReducer(state = INITIAL_STATE, action) {
         ...state,
         bookmarks: [ ...state.bookmarks, action.item ]
       };
+    case "ADD_SHORTCUT":
+      return {
+        ...state,
+        shortcuts: [ ...state.shortcuts, action.item ]
+      };
     case "TOGGLE_DASHBOARD":
       if (state.dashboardVisibility.width === "0")
         return {
@@ -50,7 +56,7 @@ function bbReducer(state = INITIAL_STATE, action) {
             width: "0"
           }
         };
-    default:
+    default:    
       return state;
   }
 }

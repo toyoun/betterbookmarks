@@ -17,7 +17,11 @@ class Settings extends Component {
         <Dashboard 
           toggleDashboardVisibility={this.props.toggleDashboardVisibility}
         />
-        <img id="background-img" alt="background" src={background} />
+        <img 
+          id="background-img" 
+          alt="background" 
+          src={background} 
+        />
       </div>
     );
   }
